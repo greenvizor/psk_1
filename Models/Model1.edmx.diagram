@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="08158044ca8d4e4ca2d24d18133c21fa" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="psk_dbModel.Ингредиенты" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="psk_dbModel.ОклейкаЭтикетками" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="psk_dbModel.ПриготовленныеСоусы" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="psk_dbModel.РецептИнгредиенты" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="psk_dbModel.Рецепты" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="psk_dbModel.Соусы" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="psk_dbModel.ФасовкаПродукта_" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <AssociationConnector Association="psk_dbModel.FK__РецептИнг__Ингре__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="psk_dbModel.FK__ОклейкаЭт__СоусI__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="psk_dbModel.FK__Приготовл__Рецеп__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="psk_dbModel.FK__Приготовл__СоусI__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="psk_dbModel.FK__РецептИнг__Рецеп__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="psk_dbModel.FK__Соусы__РецептId__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="psk_dbModel.FK__ФасовкаПр__СоусI__47DBAE45" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

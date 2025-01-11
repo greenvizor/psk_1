@@ -1,0 +1,42 @@
+﻿@model psk_1.Models.Ингредиенты
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ингредиенты</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Название)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Название)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ЕдиницаИзмерения)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ЕдиницаИзмерения)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.СрокГодности)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.СрокГодности)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ИнгредиентId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

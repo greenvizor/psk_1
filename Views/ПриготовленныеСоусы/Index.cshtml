@@ -1,0 +1,80 @@
+﻿@model IEnumerable<psk_1.Models.ПриготовленныеСоусы>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Приготовленные соусы</h2>
+
+<p>
+    @Html.ActionLink("Создать новый", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Искать по названию соуса или ответственному лицу: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Название", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Количество", "Index", new { sortOrder = ViewBag.QuantitySortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Номер Партии", "Index", new { sortOrder = ViewBag.BatchNumberSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Дата Производства", "Index", new { sortOrder = ViewBag.ProductionDateSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Ответственный", "Index", new { sortOrder = ViewBag.ResponsibleSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Название Соуса", "Index", new { sortOrder = ViewBag.SauceSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Название Рецепта", "Index", new { sortOrder = ViewBag.RecipeSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Количество)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.НомерПартии)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ДатаПроизводства)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ответственный)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Рецепты.Название)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Соусы.Название)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.СоусId }) |
+                @Html.ActionLink("Подробности", "Details", new { id = item.СоусId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.СоусId })
+            </td>
+        </tr>
+    }
+
+</table>
+

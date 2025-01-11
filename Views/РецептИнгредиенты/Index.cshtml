@@ -1,0 +1,57 @@
+﻿@model IEnumerable<psk_1.Models.РецептИнгредиенты>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>РецептИнгредиенты</h2>
+
+<p>
+    @Html.ActionLink("Создать новый", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "РецептИнгредиенты", FormMethod.Get))
+{
+    <p>
+        Найти по названию ингредиента или рецепта: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Количество", "Index", new { sortOrder = ViewBag.QuantitySortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Название ингредиента", "Index", new { sortOrder = ViewBag.IngredientNameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Название рецепта", "Index", new { sortOrder = ViewBag.RecipeNameSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Количество)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ингредиенты.Название)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Рецепты.Название)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.РецептИнгредиентId }) |
+                @Html.ActionLink("Подробности", "Details", new { id = item.РецептИнгредиентId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.РецептИнгредиентId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    /* Добавляем отступ между кнопками */
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Стили для разных цветов кнопок */
+    .btn-ingredient {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    .btn-recipe-ingredient {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    .btn-recipe {
+        background-color: #2ecc71;
+        color: #fff;
+    }
+
+    .btn-sauce {
+        background-color: #f39c12;
+        color: #fff;
+    }
+
+    .btn-prepared-sauce {
+        background-color: #9b59b6;
+        color: #fff;
+    }
+
+    .btn-packaging {
+        background-color: #1abc9c;
+        color: #fff;
+    }
+
+    .btn-labeling {
+        background-color: #e67e22;
+        color: #fff;
+    }
+
+    /* Общий стиль для кнопок */
+    .btn {
+        margin: 10px 0;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+    }
+</style>
+
+<div class="text-center">
+    <h1>Первая соусная компания</h1>
+</div>
+
+<main>
+    <div class="btn-container">
+        @Html.ActionLink("Ингредиенты", "Index", "Ингредиенты", null, new { @class = "btn btn-ingredient" })<br />
+        @Html.ActionLink("Рецепт Ингредиенты", "Index", "РецептИнгредиенты", null, new { @class = "btn btn-recipe-ingredient" })<br />
+        @Html.ActionLink("Рецепты", "Index", "Рецепты", null, new { @class = "btn btn-recipe" })<br />
+        @Html.ActionLink("Соусы", "Index", "Соусы", null, new { @class = "btn btn-sauce" })<br />
+        @Html.ActionLink("Приготовленные Соусы", "Index", "ПриготовленныеСоусы", null, new { @class = "btn btn-prepared-sauce" })<br />
+        @Html.ActionLink("Фасовка Продукта", "Index", "ФасовкаПродукта_", null, new { @class = "btn btn-packaging" })<br />
+        @Html.ActionLink("Оклейка Этикетками", "Index", "ОклейкаЭтикетками", null, new { @class = "btn btn-labeling" })
+    </div>
+</main>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<psk_1.Models.ОклейкаЭтикетками>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ОклейкаЭтикетками</h2>
+
+<p>
+    @Html.ActionLink("Создать новый", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Искать по названию соуса: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Название Бренда", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Количество", "Index", new { sortOrder = ViewBag.QuantitySortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Ответственный", "Index", new { sortOrder = ViewBag.ResponsibleSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Соус", "Index", new { sortOrder = ViewBag.SauceSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.НазваниеБренда)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Количество)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ответственный)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Соусы.Название)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ОклейкаЭтикеткамиId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ОклейкаЭтикеткамиId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ОклейкаЭтикеткамиId })
+            </td>
+        </tr>
+    }
+
+</table>
+

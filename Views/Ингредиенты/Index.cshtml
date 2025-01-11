@@ -1,0 +1,57 @@
+﻿@model IEnumerable<psk_1.Models.Ингредиенты>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Ингредиенты</h2>
+
+<p>
+    @Html.ActionLink("Создать новый", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+      Искать по названию: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Название", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("ЕдиницаИзмерения", "Index", new { sortOrder = ViewBag.MeasureUnitSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("СрокГодности", "Index", new { sortOrder = ViewBag.ExpirySortParm })
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ЕдиницаИзмерения)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.СрокГодности)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ИнгредиентId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ИнгредиентId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ИнгредиентId })
+            </td>
+        </tr>
+    }
+
+</table>
+

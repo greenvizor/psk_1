@@ -1,0 +1,66 @@
+﻿@model psk_1.Models.Соусы
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Соусы</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Название)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Название)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.НомерПартии)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.НомерПартии)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ДатаПроизводства)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ДатаПроизводства)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ответственный)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ответственный)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ПриготовленныеСоусы.Название)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ПриготовленныеСоусы.Название)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Рецепты.Название)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Рецепты.Название)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.СоусId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище psk_dbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ингредиенты">
+          <Key>
+            <PropertyRef Name="ИнгредиентId" />
+          </Key>
+          <Property Name="ИнгредиентId" Type="int" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="255" />
+          <Property Name="ЕдиницаИзмерения" Type="nvarchar" MaxLength="50" />
+          <Property Name="СрокГодности" Type="date" />
+        </EntityType>
+        <EntityType Name="ОклейкаЭтикетками">
+          <Key>
+            <PropertyRef Name="ОклейкаЭтикеткамиId" />
+          </Key>
+          <Property Name="ОклейкаЭтикеткамиId" Type="int" Nullable="false" />
+          <Property Name="СоусId" Type="int" />
+          <Property Name="НазваниеБренда" Type="nvarchar" MaxLength="255" />
+          <Property Name="Количество" Type="int" />
+          <Property Name="Ответственный" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ПриготовленныеСоусы">
+          <Key>
+            <PropertyRef Name="СоусId" />
+          </Key>
+          <Property Name="СоусId" Type="int" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="255" />
+          <Property Name="Количество" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="НомерПартии" Type="int" />
+          <Property Name="ДатаПроизводства" Type="date" />
+          <Property Name="Ответственный" Type="nvarchar" MaxLength="100" />
+          <Property Name="РецептId" Type="int" />
+        </EntityType>
+        <EntityType Name="РецептИнгредиенты">
+          <Key>
+            <PropertyRef Name="РецептИнгредиентId" />
+          </Key>
+          <Property Name="РецептИнгредиентId" Type="int" Nullable="false" />
+          <Property Name="РецептId" Type="int" />
+          <Property Name="ИнгредиентId" Type="int" />
+          <Property Name="Количество" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Рецепты">
+          <Key>
+            <PropertyRef Name="РецептId" />
+          </Key>
+          <Property Name="РецептId" Type="int" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Соусы">
+          <Key>
+            <PropertyRef Name="СоусId" />
+          </Key>
+          <Property Name="СоусId" Type="int" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="255" />
+          <Property Name="НомерПартии" Type="int" />
+          <Property Name="ДатаПроизводства" Type="date" />
+          <Property Name="Ответственный" Type="nvarchar" MaxLength="100" />
+          <Property Name="РецептId" Type="int" />
+        </EntityType>
+        <EntityType Name="ФасовкаПродукта ">
+          <Key>
+            <PropertyRef Name="ФасовкаПродуктаId" />
+          </Key>
+          <Property Name="ФасовкаПродуктаId" Type="int" Nullable="false" />
+          <Property Name="СоусId" Type="int" />
+          <Property Name="Тара" Type="nvarchar" MaxLength="50" />
+          <Property Name="Количество" Type="int" />
+          <Property Name="Ответственный" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__ОклейкаЭт__СоусI__4222D4EF">
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="0..1" />
+          <End Role="ОклейкаЭтикетками" Type="Self.ОклейкаЭтикетками" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Соусы">
+              <PropertyRef Name="СоусId" />
+            </Principal>
+            <Dependent Role="ОклейкаЭтикетками">
+              <PropertyRef Name="СоусId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Приготовл__Рецеп__440B1D61">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="0..1" />
+          <End Role="ПриготовленныеСоусы" Type="Self.ПриготовленныеСоусы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="РецептId" />
+            </Principal>
+            <Dependent Role="ПриготовленныеСоусы">
+              <PropertyRef Name="РецептId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Приготовл__СоусI__4316F928">
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="1" />
+          <End Role="ПриготовленныеСоусы" Type="Self.ПриготовленныеСоусы" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Соусы">
+              <PropertyRef Name="СоусId" />
+            </Principal>
+            <Dependent Role="ПриготовленныеСоусы">
+              <PropertyRef Name="СоусId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__РецептИнг__Ингре__45F365D3">
+          <End Role="Ингредиенты" Type="Self.Ингредиенты" Multiplicity="0..1" />
+          <End Role="РецептИнгредиенты" Type="Self.РецептИнгредиенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ингредиенты">
+              <PropertyRef Name="ИнгредиентId" />
+            </Principal>
+            <Dependent Role="РецептИнгредиенты">
+              <PropertyRef Name="ИнгредиентId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__РецептИнг__Рецеп__44FF419A">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="0..1" />
+          <End Role="РецептИнгредиенты" Type="Self.РецептИнгредиенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="РецептId" />
+            </Principal>
+            <Dependent Role="РецептИнгредиенты">
+              <PropertyRef Name="РецептId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Соусы__РецептId__46E78A0C">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="0..1" />
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="РецептId" />
+            </Principal>
+            <Dependent Role="Соусы">
+              <PropertyRef Name="РецептId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ФасовкаПр__СоусI__47DBAE45">
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="0..1" />
+          <End Role="ФасовкаПродукта " Type="Self.ФасовкаПродукта " Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Соусы">
+              <PropertyRef Name="СоусId" />
+            </Principal>
+            <Dependent Role="ФасовкаПродукта ">
+              <PropertyRef Name="СоусId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище psk_dbModelContainer">
+          <EntitySet Name="Ингредиенты" EntityType="Self.Ингредиенты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ОклейкаЭтикетками" EntityType="Self.ОклейкаЭтикетками" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ПриготовленныеСоусы" EntityType="Self.ПриготовленныеСоусы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="РецептИнгредиенты" EntityType="Self.РецептИнгредиенты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Рецепты" EntityType="Self.Рецепты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Соусы" EntityType="Self.Соусы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ФасовкаПродукта " EntityType="Self.ФасовкаПродукта " Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ОклейкаЭт__СоусI__4222D4EF" Association="Self.FK__ОклейкаЭт__СоусI__4222D4EF">
+            <End Role="Соусы" EntitySet="Соусы" />
+            <End Role="ОклейкаЭтикетками" EntitySet="ОклейкаЭтикетками" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Приготовл__Рецеп__440B1D61" Association="Self.FK__Приготовл__Рецеп__440B1D61">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="ПриготовленныеСоусы" EntitySet="ПриготовленныеСоусы" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Приготовл__СоусI__4316F928" Association="Self.FK__Приготовл__СоусI__4316F928">
+            <End Role="Соусы" EntitySet="Соусы" />
+            <End Role="ПриготовленныеСоусы" EntitySet="ПриготовленныеСоусы" />
+          </AssociationSet>
+          <AssociationSet Name="FK__РецептИнг__Ингре__45F365D3" Association="Self.FK__РецептИнг__Ингре__45F365D3">
+            <End Role="Ингредиенты" EntitySet="Ингредиенты" />
+            <End Role="РецептИнгредиенты" EntitySet="РецептИнгредиенты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__РецептИнг__Рецеп__44FF419A" Association="Self.FK__РецептИнг__Рецеп__44FF419A">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="РецептИнгредиенты" EntitySet="РецептИнгредиенты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Соусы__РецептId__46E78A0C" Association="Self.FK__Соусы__РецептId__46E78A0C">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="Соусы" EntitySet="Соусы" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ФасовкаПр__СоусI__47DBAE45" Association="Self.FK__ФасовкаПр__СоусI__47DBAE45">
+            <End Role="Соусы" EntitySet="Соусы" />
+            <End Role="ФасовкаПродукта " EntitySet="ФасовкаПродукта " />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="psk_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ингредиенты">
+          <Key>
+            <PropertyRef Name="ИнгредиентId" />
+          </Key>
+          <Property Name="ИнгредиентId" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ЕдиницаИзмерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="СрокГодности" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="РецептИнгредиенты" Relationship="Self.FK__РецептИнг__Ингре__45F365D3" FromRole="Ингредиенты" ToRole="РецептИнгредиенты" />
+        </EntityType>
+        <EntityType Name="ОклейкаЭтикетками">
+          <Key>
+            <PropertyRef Name="ОклейкаЭтикеткамиId" />
+          </Key>
+          <Property Name="ОклейкаЭтикеткамиId" Type="Int32" Nullable="false" />
+          <Property Name="СоусId" Type="Int32" />
+          <Property Name="НазваниеБренда" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Количество" Type="Int32" />
+          <Property Name="Ответственный" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Соусы" Relationship="Self.FK__ОклейкаЭт__СоусI__4222D4EF" FromRole="ОклейкаЭтикетками" ToRole="Соусы" />
+        </EntityType>
+        <EntityType Name="ПриготовленныеСоусы">
+          <Key>
+            <PropertyRef Name="СоусId" />
+          </Key>
+          <Property Name="СоусId" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Количество" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="НомерПартии" Type="Int32" />
+          <Property Name="ДатаПроизводства" Type="DateTime" Precision="0" />
+          <Property Name="Ответственный" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="РецептId" Type="Int32" />
+          <NavigationProperty Name="Рецепты" Relationship="Self.FK__Приготовл__Рецеп__440B1D61" FromRole="ПриготовленныеСоусы" ToRole="Рецепты" />
+          <NavigationProperty Name="Соусы" Relationship="Self.FK__Приготовл__СоусI__4316F928" FromRole="ПриготовленныеСоусы" ToRole="Соусы" />
+        </EntityType>
+        <EntityType Name="РецептИнгредиенты">
+          <Key>
+            <PropertyRef Name="РецептИнгредиентId" />
+          </Key>
+          <Property Name="РецептИнгредиентId" Type="Int32" Nullable="false" />
+          <Property Name="РецептId" Type="Int32" />
+          <Property Name="ИнгредиентId" Type="Int32" />
+          <Property Name="Количество" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Ингредиенты" Relationship="Self.FK__РецептИнг__Ингре__45F365D3" FromRole="РецептИнгредиенты" ToRole="Ингредиенты" />
+          <NavigationProperty Name="Рецепты" Relationship="Self.FK__РецептИнг__Рецеп__44FF419A" FromRole="РецептИнгредиенты" ToRole="Рецепты" />
+        </EntityType>
+        <EntityType Name="Рецепты">
+          <Key>
+            <PropertyRef Name="РецептId" />
+          </Key>
+          <Property Name="РецептId" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ПриготовленныеСоусы" Relationship="Self.FK__Приготовл__Рецеп__440B1D61" FromRole="Рецепты" ToRole="ПриготовленныеСоусы" />
+          <NavigationProperty Name="РецептИнгредиенты" Relationship="Self.FK__РецептИнг__Рецеп__44FF419A" FromRole="Рецепты" ToRole="РецептИнгредиенты" />
+          <NavigationProperty Name="Соусы" Relationship="Self.FK__Соусы__РецептId__46E78A0C" FromRole="Рецепты" ToRole="Соусы" />
+        </EntityType>
+        <EntityType Name="Соусы">
+          <Key>
+            <PropertyRef Name="СоусId" />
+          </Key>
+          <Property Name="СоусId" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="НомерПартии" Type="Int32" />
+          <Property Name="ДатаПроизводства" Type="DateTime" Precision="0" />
+          <Property Name="Ответственный" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="РецептId" Type="Int32" />
+          <NavigationProperty Name="ОклейкаЭтикетками" Relationship="Self.FK__ОклейкаЭт__СоусI__4222D4EF" FromRole="Соусы" ToRole="ОклейкаЭтикетками" />
+          <NavigationProperty Name="ПриготовленныеСоусы" Relationship="Self.FK__Приготовл__СоусI__4316F928" FromRole="Соусы" ToRole="ПриготовленныеСоусы" />
+          <NavigationProperty Name="Рецепты" Relationship="Self.FK__Соусы__РецептId__46E78A0C" FromRole="Соусы" ToRole="Рецепты" />
+          <NavigationProperty Name="ФасовкаПродукта_" Relationship="Self.FK__ФасовкаПр__СоусI__47DBAE45" FromRole="Соусы" ToRole="ФасовкаПродукта_" />
+        </EntityType>
+        <EntityType Name="ФасовкаПродукта_">
+          <Key>
+            <PropertyRef Name="ФасовкаПродуктаId" />
+          </Key>
+          <Property Name="ФасовкаПродуктаId" Type="Int32" Nullable="false" />
+          <Property Name="СоусId" Type="Int32" />
+          <Property Name="Тара" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Количество" Type="Int32" />
+          <Property Name="Ответственный" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Соусы" Relationship="Self.FK__ФасовкаПр__СоусI__47DBAE45" FromRole="ФасовкаПродукта_" ToRole="Соусы" />
+        </EntityType>
+        <Association Name="FK__РецептИнг__Ингре__45F365D3">
+          <End Role="Ингредиенты" Type="Self.Ингредиенты" Multiplicity="0..1" />
+          <End Role="РецептИнгредиенты" Type="Self.РецептИнгредиенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ингредиенты">
+              <PropertyRef Name="ИнгредиентId" />
+            </Principal>
+            <Dependent Role="РецептИнгредиенты">
+              <PropertyRef Name="ИнгредиентId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ОклейкаЭт__СоусI__4222D4EF">
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="0..1" />
+          <End Role="ОклейкаЭтикетками" Type="Self.ОклейкаЭтикетками" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Соусы">
+              <PropertyRef Name="СоусId" />
+            </Principal>
+            <Dependent Role="ОклейкаЭтикетками">
+              <PropertyRef Name="СоусId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Приготовл__Рецеп__440B1D61">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="0..1" />
+          <End Role="ПриготовленныеСоусы" Type="Self.ПриготовленныеСоусы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="РецептId" />
+            </Principal>
+            <Dependent Role="ПриготовленныеСоусы">
+              <PropertyRef Name="РецептId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Приготовл__СоусI__4316F928">
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="1" />
+          <End Role="ПриготовленныеСоусы" Type="Self.ПриготовленныеСоусы" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Соусы">
+              <PropertyRef Name="СоусId" />
+            </Principal>
+            <Dependent Role="ПриготовленныеСоусы">
+              <PropertyRef Name="СоусId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__РецептИнг__Рецеп__44FF419A">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="0..1" />
+          <End Role="РецептИнгредиенты" Type="Self.РецептИнгредиенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="РецептId" />
+            </Principal>
+            <Dependent Role="РецептИнгредиенты">
+              <PropertyRef Name="РецептId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Соусы__РецептId__46E78A0C">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="0..1" />
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="РецептId" />
+            </Principal>
+            <Dependent Role="Соусы">
+              <PropertyRef Name="РецептId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ФасовкаПр__СоусI__47DBAE45">
+          <End Role="Соусы" Type="Self.Соусы" Multiplicity="0..1" />
+          <End Role="ФасовкаПродукта_" Type="Self.ФасовкаПродукта_" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Соусы">
+              <PropertyRef Name="СоусId" />
+            </Principal>
+            <Dependent Role="ФасовкаПродукта_">
+              <PropertyRef Name="СоусId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="psk_dbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ингредиенты" EntityType="Self.Ингредиенты" />
+          <EntitySet Name="ОклейкаЭтикетками" EntityType="Self.ОклейкаЭтикетками" />
+          <EntitySet Name="ПриготовленныеСоусы" EntityType="Self.ПриготовленныеСоусы" />
+          <EntitySet Name="РецептИнгредиенты" EntityType="Self.РецептИнгредиенты" />
+          <EntitySet Name="Рецепты" EntityType="Self.Рецепты" />
+          <EntitySet Name="Соусы" EntityType="Self.Соусы" />
+          <EntitySet Name="ФасовкаПродукта_" EntityType="Self.ФасовкаПродукта_" />
+          <AssociationSet Name="FK__РецептИнг__Ингре__45F365D3" Association="Self.FK__РецептИнг__Ингре__45F365D3">
+            <End Role="Ингредиенты" EntitySet="Ингредиенты" />
+            <End Role="РецептИнгредиенты" EntitySet="РецептИнгредиенты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ОклейкаЭт__СоусI__4222D4EF" Association="Self.FK__ОклейкаЭт__СоусI__4222D4EF">
+            <End Role="Соусы" EntitySet="Соусы" />
+            <End Role="ОклейкаЭтикетками" EntitySet="ОклейкаЭтикетками" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Приготовл__Рецеп__440B1D61" Association="Self.FK__Приготовл__Рецеп__440B1D61">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="ПриготовленныеСоусы" EntitySet="ПриготовленныеСоусы" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Приготовл__СоусI__4316F928" Association="Self.FK__Приготовл__СоусI__4316F928">
+            <End Role="Соусы" EntitySet="Соусы" />
+            <End Role="ПриготовленныеСоусы" EntitySet="ПриготовленныеСоусы" />
+          </AssociationSet>
+          <AssociationSet Name="FK__РецептИнг__Рецеп__44FF419A" Association="Self.FK__РецептИнг__Рецеп__44FF419A">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="РецептИнгредиенты" EntitySet="РецептИнгредиенты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Соусы__РецептId__46E78A0C" Association="Self.FK__Соусы__РецептId__46E78A0C">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="Соусы" EntitySet="Соусы" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ФасовкаПр__СоусI__47DBAE45" Association="Self.FK__ФасовкаПр__СоусI__47DBAE45">
+            <End Role="Соусы" EntitySet="Соусы" />
+            <End Role="ФасовкаПродукта_" EntitySet="ФасовкаПродукта_" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище psk_dbModelContainer" CdmEntityContainer="psk_dbEntities1">
+          <EntitySetMapping Name="Ингредиенты">
+            <EntityTypeMapping TypeName="psk_dbModel.Ингредиенты">
+              <MappingFragment StoreEntitySet="Ингредиенты">
+                <ScalarProperty Name="ИнгредиентId" ColumnName="ИнгредиентId" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="ЕдиницаИзмерения" ColumnName="ЕдиницаИзмерения" />
+                <ScalarProperty Name="СрокГодности" ColumnName="СрокГодности" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ОклейкаЭтикетками">
+            <EntityTypeMapping TypeName="psk_dbModel.ОклейкаЭтикетками">
+              <MappingFragment StoreEntitySet="ОклейкаЭтикетками">
+                <ScalarProperty Name="ОклейкаЭтикеткамиId" ColumnName="ОклейкаЭтикеткамиId" />
+                <ScalarProperty Name="СоусId" ColumnName="СоусId" />
+                <ScalarProperty Name="НазваниеБренда" ColumnName="НазваниеБренда" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Ответственный" ColumnName="Ответственный" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ПриготовленныеСоусы">
+            <EntityTypeMapping TypeName="psk_dbModel.ПриготовленныеСоусы">
+              <MappingFragment StoreEntitySet="ПриготовленныеСоусы">
+                <ScalarProperty Name="СоусId" ColumnName="СоусId" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="НомерПартии" ColumnName="НомерПартии" />
+                <ScalarProperty Name="ДатаПроизводства" ColumnName="ДатаПроизводства" />
+                <ScalarProperty Name="Ответственный" ColumnName="Ответственный" />
+                <ScalarProperty Name="РецептId" ColumnName="РецептId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="РецептИнгредиенты">
+            <EntityTypeMapping TypeName="psk_dbModel.РецептИнгредиенты">
+              <MappingFragment StoreEntitySet="РецептИнгредиенты">
+                <ScalarProperty Name="РецептИнгредиентId" ColumnName="РецептИнгредиентId" />
+                <ScalarProperty Name="РецептId" ColumnName="РецептId" />
+                <ScalarProperty Name="ИнгредиентId" ColumnName="ИнгредиентId" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Рецепты">
+            <EntityTypeMapping TypeName="psk_dbModel.Рецепты">
+              <MappingFragment StoreEntitySet="Рецепты">
+                <ScalarProperty Name="РецептId" ColumnName="РецептId" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Соусы">
+            <EntityTypeMapping TypeName="psk_dbModel.Соусы">
+              <MappingFragment StoreEntitySet="Соусы">
+                <ScalarProperty Name="СоусId" ColumnName="СоусId" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="НомерПартии" ColumnName="НомерПартии" />
+                <ScalarProperty Name="ДатаПроизводства" ColumnName="ДатаПроизводства" />
+                <ScalarProperty Name="Ответственный" ColumnName="Ответственный" />
+                <ScalarProperty Name="РецептId" ColumnName="РецептId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ФасовкаПродукта_">
+            <EntityTypeMapping TypeName="psk_dbModel.ФасовкаПродукта_">
+              <MappingFragment StoreEntitySet="ФасовкаПродукта ">
+                <ScalarProperty Name="ФасовкаПродуктаId" ColumnName="ФасовкаПродуктаId" />
+                <ScalarProperty Name="СоусId" ColumnName="СоусId" />
+                <ScalarProperty Name="Тара" ColumnName="Тара" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Ответственный" ColumnName="Ответственный" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

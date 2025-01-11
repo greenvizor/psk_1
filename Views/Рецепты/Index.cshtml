@@ -1,0 +1,43 @@
+﻿@model IEnumerable<psk_1.Models.Рецепты>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Рецепты</h2>
+
+<p>
+    @Html.ActionLink("Создать новый", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Найти по названию: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Название", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.РецептId }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.РецептId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.РецептId })
+            </td>
+        </tr>
+    }
+
+</table>
